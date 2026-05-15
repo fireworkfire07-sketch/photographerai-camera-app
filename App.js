@@ -17,7 +17,12 @@ export default function App() {
 
   const [modeIndex, setModeIndex] = useState(0);
   const [photoCount, setPhotoCount] = useState(0);
-  const [score, setScore] = useState(0);
+  const [analysisResult, setAnalysisResult] = useState({
+  score: 0,
+  accepted: false,
+  heroShot: false,
+  issues: [],
+});
   const [guideText, setGuideText] = useState("Ready");
   const [shotPlan] = useState(generateShotPlan(80));
 
@@ -37,7 +42,7 @@ export default function App() {
 
     const poseMessage = getPoseSuggestion(face.faceCentered, face.lightingGood);
 
-    setScore(newScore);
+    setAnalysisResult(newScore);
     setGuideText(poseMessage);
     voiceGuide(poseMessage);
 
@@ -76,7 +81,7 @@ export default function App() {
       return;
     }
 
-    const burst = captureBurstCount();
+    const burst = captureBurstCount(analysis.score);
 
     for (let i = 0; i < burst; i++) {
       await captureOne();
@@ -104,8 +109,8 @@ export default function App() {
     );
   }
 
-  const overlayColor = getOverlayColor(score);
-  const overlayMessage = getOverlayMessage(score);
+  const overlayColor = getOverlayColor(analysisResult.score);
+const overlayMessage = getOverlayMessage(analysisResult);
 
   return (
     <View style={styles.container}>
@@ -119,7 +124,7 @@ export default function App() {
             <Text style={styles.mode}>{currentMode.name}</Text>
             <Text style={styles.counter}>Photos: {photoCount} / 80</Text>
             <Text style={[styles.score, { color: overlayColor }]}>
-              {overlayMessage} | Score: {score}
+              {overlayMessage} | Score: {analysisResult.score}
             </Text>
           </View>
 
