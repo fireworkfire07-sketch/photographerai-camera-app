@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "PHOTOGRAPHERAI",
+    "slug": "photographerai-camera-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./IMG_4322.jpeg",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./IMG_4322.jpeg",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "PHOTOGRAPHERAI needs camera access."
+      }
+    },
+    "android": {
+      "permissions": ["CAMERA"]
+    },
+    "plugins": [
+      "expo-camera"
+    ]
+  }
+}
